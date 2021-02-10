@@ -33,5 +33,5 @@ class TableManager(object):
             print("Deleted table {}!".format(name))
             return True
         except ResourceNotFoundError:
-            print("Table not found.")
+            print("Table does not exist.")
             return False
