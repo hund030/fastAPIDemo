@@ -1,3 +1,5 @@
+from fastapi import HTTPException
+
 class Response:
     @staticmethod
     def ok(data=None):
@@ -11,7 +13,4 @@ class Response:
     
     @staticmethod
     def error(code, msg):
-        return {
-            'code': code,
-            'msg': msg
-        }
+        raise HTTPException(code, msg)
