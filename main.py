@@ -1,7 +1,6 @@
 from response import Response
-from typing import Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 
 from table_manager import TableManager
 from entity_manager import EntityManger
@@ -39,8 +38,9 @@ def query_entities(table_name: str):
     result = EntityManger.query_entities(client)
     if not result:
         return Response.error(500, 'Cannot query entities.')
-    data = []
+    data = [item for item in result]
     return Response.ok(data)
+
 
 @app.post("/entities")
 def create_entity(table_name: str, row_key: str):
