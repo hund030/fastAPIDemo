@@ -1,3 +1,4 @@
+from azure.core.paging import ItemPaged
 from azure.data.tables import TableClient
 import random
 import copy
@@ -30,10 +31,8 @@ class EntityManger(object):
             return False
 
     @staticmethod
-    def query_entities(client: TableClient) -> list:
+    def query_entities(client: TableClient) -> ItemPaged:
         queried_entities = client.query_entities(filter="")
-        for entity_chosen in queried_entities:
-            print(entity_chosen)
         return queried_entities
 
     @staticmethod
