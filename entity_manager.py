@@ -1,26 +1,17 @@
 from azure.core.paging import ItemPaged
 from azure.data.tables import TableClient
-import random
-import copy
-
-brands = [u"Crayola", u"Sharpie", u"Chameleon"]
-colors = [u"red", u"blue", u"orange", u"yellow"]
-names = [u"marker", u"pencil", u"pen"]
-entity_template = {
-    u"PartitionKey": u"pk",
-    u"RowKey": u"row",
-}
+from datetime import date
+from constants import Constants
 
 
 class EntityManger(object):
     @staticmethod
-    def create_entity(client: TableClient, row_key: str) -> bool:
-        e = copy.deepcopy(entity_template)
+    def create_entity(client: TableClient, row_key: str,  name: str,
+                      id: str = '', author=[''], actors=[''], directors=[''], tags=[''],
+                      publication_date=date.fromisoformat(Constants.Default_Date)) -> bool:
+        e = Entity.newEntity()
         e[u"RowKey"] = row_key
-        e[u"Name"] = random.choice(names)
-        e[u"Brand"] = random.choice(brands)
-        e[u"Color"] = random.choice(colors)
-        e[u"Value"] = random.randint(0, 100)
+        e[u"Name"] = name
 
         from azure.core.exceptions import ResourceExistsError
         try:
