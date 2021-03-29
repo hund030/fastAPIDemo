@@ -1,8 +1,9 @@
 from typing import Optional
 
 from azure.data.tables import TableServiceClient
+from azure.core.exceptions import ResourceExistsError
 
-from utils import Utils
+from utils import Validation
 
 
 class TableManager(object):
@@ -11,11 +12,10 @@ class TableManager(object):
 
     @staticmethod
     def create_table(client: TableServiceClient, name: str) -> bool:
-        if not Utils.validateTableName(name):
+        if not Validation.validateTableName(name):
             print("Table names must be alphanumeric, cannot begin with a number, and must be between 3-63 characters long.")
             return False
 
-        from azure.core.exceptions import ResourceExistsError
         try:
             table_item = client.create_table(
                 table_name=name)
@@ -27,7 +27,6 @@ class TableManager(object):
 
     @staticmethod
     def delete_table(client: TableServiceClient, name: str) -> bool:
-        from azure.core.exceptions import ResourceNotFoundError
         try:
             client.delete_table(table_name=name)
             print("Deleted table {}!".format(name))

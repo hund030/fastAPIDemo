@@ -1,5 +1,6 @@
 from datetime import date
 import copy
+from resources import Constants
 
 
 class Entity(object):
@@ -12,7 +13,7 @@ class Entity(object):
         u"Authors": [u"Authors"],
         u"Main Actors": [u"Main Actors"],
         u"Directors": [u"Directors"],
-        u"Publication Date": date.fromisoformat('2012-2-29'),
+        u"Publication Date": date.fromisoformat(Constants.Default_Date),
         u"Tags": [u"Tags"],
     }
 

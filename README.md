@@ -3,9 +3,7 @@
 * Python
 
 ```
-pip install fastapi
-pip install uvicorn[stardard]
-pip install azure-data-tables
+pip install -r requirements.txt
 ```
 
 ## Get started

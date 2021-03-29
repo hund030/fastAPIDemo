@@ -1,10 +1,7 @@
-from response import Response
-
 from fastapi import FastAPI
 
-from table_manager import TableManager
-from entity_manager import EntityManger
-from client_factory import ClientFactory
+from ops import ClientFactory, TableManager, EntityManger
+from utils import Response
 
 app = FastAPI()
 
