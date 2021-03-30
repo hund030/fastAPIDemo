@@ -19,4 +19,4 @@ class Entity(object):
 
     @staticmethod
     def newEntity():
-        return copy.deepcopy(entity_template)
+        return copy.deepcopy(Entity.entity_template)

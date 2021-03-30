@@ -1,7 +1,8 @@
+from azure.core.exceptions import ResourceNotFoundError
 from azure.core.paging import ItemPaged
 from azure.data.tables import TableClient
 from datetime import date
-from src.resources import Constants
+from src.resources import Constants, Entity
 
 
 class EntityManger(object):
@@ -13,7 +14,6 @@ class EntityManger(object):
         e[u"RowKey"] = row_key
         e[u"Name"] = name
 
-        from azure.core.exceptions import ResourceExistsError
         try:
             client.create_entity(entity=e)
             return True
@@ -28,7 +28,6 @@ class EntityManger(object):
 
     @staticmethod
     def delete_entity(client: TableClient, row_key: str, partition_key: str) -> bool:
-        from azure.core.exceptions import ResourceNotFoundError
         try:
             client.delete_entity(row_key=row_key, partition_key=partition_key)
             return True
