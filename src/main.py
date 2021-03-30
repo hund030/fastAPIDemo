@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from azure.core.exceptions import AzureError
 from ops import ClientFactory, TableManager, EntityManger
 from utils import Response
-from resources import BaseError, QueryEntitiesError, EntityNotFoundError, EntityAlreadyExistsError, TableNotFoundError, TableAlreadyExistsError
+from resources import Entity, BaseError, QueryEntitiesError, EntityNotFoundError, EntityAlreadyExistsError, TableNotFoundError, TableAlreadyExistsError
 
 app = FastAPI()
 
@@ -33,7 +33,7 @@ def delete_table(table_name: str):
 
 
 @app.get("/entities")
-def query_entities(table_name: str):
+def query_entities(table_name: str, parameters=''):
     def _query_entities():
         client = ClientFactory.getTableClient(table_name)
         result = EntityManger.query_entities(client)
@@ -46,7 +46,7 @@ def query_entities(table_name: str):
 
 
 @app.post("/entities")
-def create_entity(table_name: str, row_key: str):
+def create_entity(table_name: str, row_key: str, parameters=''):
     def _create_entity():
         client = ClientFactory.getTableClient(table_name)
         result = EntityManger.create_entity(client, row_key)
@@ -63,6 +63,7 @@ def delete_entity(table_name: str, row_key: str, partition_key: str):
         if not result:
             raise EntityNotFoundError()
     return runWithErrorHandling(_delete_entity)
+
 
 def runWithErrorHandling(fn):
     try:

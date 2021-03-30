@@ -7,12 +7,9 @@ from resources import Constants, Entity, EntityAlreadyExistsError, EntityNotFoun
 
 class EntityManger(object):
     @staticmethod
-    def create_entity(client: TableClient, row_key: str,  name: str,
-                      id: str = '', author=[''], actors=[''], directors=[''], tags=[''],
-                      publication_date=date.fromisoformat(Constants.Default_Date)):
-        e = Entity.newEntity()
+    def create_entity(client: TableClient, row_key: str,  parameters=''):
+        e = Entity.newEntity(parameters)
         e[u"RowKey"] = row_key
-        e[u"Name"] = name
 
         try:
             client.create_entity(entity=e)

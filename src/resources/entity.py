@@ -1,6 +1,7 @@
 from datetime import date
 import copy
-from resources import Constants
+from resources import Constants, InvalidParameterFormat
+import json
 
 
 class Entity(object):
@@ -18,5 +19,13 @@ class Entity(object):
     }
 
     @staticmethod
-    def newEntity():
-        return copy.deepcopy(Entity.entity_template)
+    def newEntity(parameters_string):
+        try:
+            parameters = json.loads(parameters_string)
+        except BaseException as error:
+            raise InvalidParameterFormat()
+
+        entity = copy.deepcopy(Entity.entity_template)
+        for attr, value in parameters.items():
+            entity[attr] = value
+        return entity
