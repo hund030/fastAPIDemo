@@ -2,7 +2,7 @@ from azure.core.exceptions import ResourceNotFoundError
 from azure.core.paging import ItemPaged
 from azure.data.tables import TableClient
 from datetime import date
-from src.resources import Constants, Entity
+from resources import Constants, Entity
 
 
 class EntityManger(object):

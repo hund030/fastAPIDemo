@@ -1,6 +1,6 @@
 from datetime import date
 import copy
-from src.resources import Constants
+from resources import Constants
 
 
 class Entity(object):

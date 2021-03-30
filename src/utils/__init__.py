@@ -1,2 +1,2 @@
-from src.utils.response import *
-from src.utils.validation import *
+from utils.response import *
+from utils.validation import *

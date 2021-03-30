@@ -1,6 +1,6 @@
-from src.ops import ClientFactory, EntityManger
-from src.resources import Config
-from src.tests.helper import TestHelper
+from ops import ClientFactory, EntityManger
+from resources import Config
+from tests.helper import TestHelper
 
 class MockEntity:
     pass

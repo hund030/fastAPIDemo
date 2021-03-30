@@ -4,8 +4,8 @@
             "name": "Debug: fastapi",
             "type": "python",
             "request": "launch",
-            "program": "src/debug.py",
-            "cwd": "${workspaceFolder}",
+            "program": "debug.py",
+            "cwd": "${workspaceFolder}/src",
             "console": "integratedTerminal"
         }
     ]

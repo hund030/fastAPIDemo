@@ -1,6 +1,6 @@
-from src.ops import ClientFactory, TableManager
-from src.resources import Config
-from src.tests.helper import TestHelper
+from ops import ClientFactory, TableManager
+from resources import Config
+from tests.helper import TestHelper
 
 class MockTable:
     @staticmethod

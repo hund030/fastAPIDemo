@@ -20,5 +20,5 @@ By default the app is hosted in [localhost:8000](localhost:8000).
 ## Run unit test
 
 ```bash
-pytest
+python -m pytest
 ```
