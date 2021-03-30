@@ -1,7 +1,7 @@
 from azure.core.paging import ItemPaged
 from azure.data.tables import TableClient
 from datetime import date
-from resources import Constants
+from src.resources import Constants
 
 
 class EntityManger(object):

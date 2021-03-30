@@ -1,3 +1,3 @@
-from resources.config import *
-from resources.constants import *
-from resources.entity import *
+from src.resources.config import *
+from src.resources.constants import *
+from src.resources.entity import *

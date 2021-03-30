@@ -1,4 +1,4 @@
-from resources import Config
+from src.resources import Config
 
 
 class ClientFactory(object):

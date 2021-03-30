@@ -3,7 +3,7 @@ from typing import Optional
 from azure.data.tables import TableServiceClient
 from azure.core.exceptions import ResourceExistsError
 
-from utils import Validation
+from src.utils import Validation
 
 
 class TableManager(object):
