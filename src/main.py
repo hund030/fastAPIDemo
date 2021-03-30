@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-
+from azure.core.exceptions import AzureError
 from ops import ClientFactory, TableManager, EntityManger
 from utils import Response
-from resources import BaseError, QueryEntitiesError
+from resources import BaseError, QueryEntitiesError, EntityNotFoundError, EntityAlreadyExistsError, TableNotFoundError, TableAlreadyExistsError
 
 app = FastAPI()
 
@@ -14,27 +14,28 @@ def read_root():
 
 @app.post("/tables")
 def create_table(table_name: str):
-    client = ClientFactory.getTableServiceClient()
-    result = TableManager.create_table(client, table_name)
-    if not result:
-        return Response.error(400, 'Table already exists.')
-    return Response.ok()
+    def _create_table():
+        client = ClientFactory.getTableServiceClient()
+        result = TableManager.create_table(client, table_name)
+        if not result:
+            raise TableAlreadyExistsError()
+    return runWithErrorHandling(_create_table)
 
 
 @app.delete("/tables")
 def delete_table(table_name: str):
-    client = ClientFactory.getTableServiceClient()
-    result = TableManager.delete_table(client, table_name)
-    if not result:
-        return Response.error(400, 'Table does not exist.')
-    return Response.ok()
+    def _delete_table():
+        client = ClientFactory.getTableServiceClient()
+        result = TableManager.delete_table(client, table_name)
+        if not result:
+            raise TableNotFoundError()
+    return runWithErrorHandling(_delete_table)
 
 
 @app.get("/entities")
 def query_entities(table_name: str):
     def _query_entities():
         client = ClientFactory.getTableClient(table_name)
-
         result = EntityManger.query_entities(client)
         if not result:
             return QueryEntitiesError
@@ -46,23 +47,29 @@ def query_entities(table_name: str):
 
 @app.post("/entities")
 def create_entity(table_name: str, row_key: str):
-    client = ClientFactory.getTableClient(table_name)
-    result = EntityManger.create_entity(client, row_key)
-    if not result:
-        return Response.error(400, 'Entity already exists.')
-    return Response.ok()
+    def _create_entity():
+        client = ClientFactory.getTableClient(table_name)
+        result = EntityManger.create_entity(client, row_key)
+        if not result:
+            raise EntityAlreadyExistsError()
+    return runWithErrorHandling(_create_entity)
 
 
 @app.delete("/entities")
 def delete_entity(table_name: str, row_key: str, partition_key: str):
-    client = ClientFactory.getTableClient(table_name)
-    result = EntityManger.delete_entity(client, row_key, partition_key)
-    if not result:
-        return Response.error(400, 'Entity does not exist.')
-    return Response.ok()
+    def _delete_entity():
+        client = ClientFactory.getTableClient(table_name)
+        result = EntityManger.delete_entity(client, row_key, partition_key)
+        if not result:
+            raise EntityNotFoundError()
+    return runWithErrorHandling(_delete_entity)
 
 def runWithErrorHandling(fn):
     try:
         return Response.ok(fn())
     except BaseError as error:
         raise Response.error(error.code, error.message)
+    except AzureError as error:
+        raise Response.error(400, 'Get Azure error: {}'.format(error))
+    except BaseException as error:
+        raise Response.error(500, 'Unhandled exception: {}.'.format(error))
