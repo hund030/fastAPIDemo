@@ -9,7 +9,6 @@ class EntityManger(object):
     @staticmethod
     def create_entity(client: TableClient, row_key: str,  parameters=''):
         e = Entity.newEntity(parameters)
-        e[u"RowKey"] = row_key
 
         try:
             client.create_entity(entity=e)
@@ -18,7 +17,7 @@ class EntityManger(object):
 
     @staticmethod
     def query_entities(client: TableClient) -> ItemPaged:
-        queried_entities = client.query_entities(filter="")
+        queried_entities = client.query_entities(filter=' ')
         return queried_entities
 
     @staticmethod

@@ -18,7 +18,7 @@ class TableManager(object):
         try:
             table_item = client.create_table(
                 table_name=name)
-            print("Created table {}!".format(table_item.table_name))
+            print('Created table {}! '.format(table_item.table_name))
         except ResourceExistsError:
             raise TableAlreadyExistsError()
 
@@ -26,6 +26,6 @@ class TableManager(object):
     def delete_table(client: TableServiceClient, name: str):
         try:
             client.delete_table(table_name=name)
-            print("Deleted table {}!".format(name))
+            print('Deleted table {}! '.format(name))
         except ResourceNotFoundError:
             raise TableNotFoundError()

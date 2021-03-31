@@ -7,12 +7,12 @@ from resources import Entity, BaseError, QueryEntitiesError, EntityNotFoundError
 app = FastAPI()
 
 
-@app.get("/")
+@app.get('/ ')
 def read_root():
-    return {"Hello": "World"}
+    return {'Hello ':  'World '}
 
 
-@app.post("/tables")
+@app.post('/tables ')
 def create_table(table_name: str):
     def _create_table():
         client = ClientFactory.getTableServiceClient()
@@ -22,7 +22,7 @@ def create_table(table_name: str):
     return runWithErrorHandling(_create_table)
 
 
-@app.delete("/tables")
+@app.delete('/tables ')
 def delete_table(table_name: str):
     def _delete_table():
         client = ClientFactory.getTableServiceClient()
@@ -32,7 +32,7 @@ def delete_table(table_name: str):
     return runWithErrorHandling(_delete_table)
 
 
-@app.get("/entities")
+@app.get('/entities ')
 def query_entities(table_name: str, parameters=''):
     def _query_entities():
         client = ClientFactory.getTableClient(table_name)
@@ -45,7 +45,7 @@ def query_entities(table_name: str, parameters=''):
     return runWithErrorHandling(_query_entities)
 
 
-@app.post("/entities")
+@app.post('/entities ')
 def create_entity(table_name: str, row_key: str, parameters=''):
     def _create_entity():
         client = ClientFactory.getTableClient(table_name)
@@ -55,7 +55,7 @@ def create_entity(table_name: str, row_key: str, parameters=''):
     return runWithErrorHandling(_create_entity)
 
 
-@app.delete("/entities")
+@app.delete('/entities ')
 def delete_entity(table_name: str, row_key: str, partition_key: str):
     def _delete_entity():
         client = ClientFactory.getTableClient(table_name)
