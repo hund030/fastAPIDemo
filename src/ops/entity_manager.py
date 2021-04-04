@@ -2,7 +2,7 @@ from azure.core.exceptions import ResourceNotFoundError
 from azure.core.paging import ItemPaged
 from azure.data.tables import TableClient
 from datetime import date
-from resources import Constants, Entity, EntityAlreadyExistsError, EntityNotFoundError
+from resources import DefaultValues, Entity, EntityAlreadyExistsError, EntityNotFoundError
 
 
 class EntityManger(object):
@@ -17,7 +17,7 @@ class EntityManger(object):
 
     @staticmethod
     def query_entities(client: TableClient) -> ItemPaged:
-        queried_entities = client.query_entities(filter=' ')
+        queried_entities = client.query_entities(filter='')
         return queried_entities
 
     @staticmethod

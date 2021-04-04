@@ -3,65 +3,58 @@ from azure.core.exceptions import AzureError
 from ops import ClientFactory, TableManager, EntityManger
 from utils import Response
 from resources import Entity, BaseError, QueryEntitiesError, EntityNotFoundError, EntityAlreadyExistsError, TableNotFoundError, TableAlreadyExistsError
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 
 
-@app.get('/ ')
+@app.get('/')
 def read_root():
-    return {'Hello ':  'World '}
+    return {'Hello': 'World'}
 
 
-@app.post('/tables ')
+@app.post('/tables')
 def create_table(table_name: str):
     def _create_table():
         client = ClientFactory.getTableServiceClient()
-        result = TableManager.create_table(client, table_name)
-        if not result:
-            raise TableAlreadyExistsError()
+        TableManager.create_table(client, table_name)
     return runWithErrorHandling(_create_table)
 
 
-@app.delete('/tables ')
+@app.delete('/tables')
 def delete_table(table_name: str):
     def _delete_table():
         client = ClientFactory.getTableServiceClient()
-        result = TableManager.delete_table(client, table_name)
-        if not result:
-            raise TableNotFoundError()
+        TableManager.delete_table(client, table_name)
     return runWithErrorHandling(_delete_table)
 
 
-@app.get('/entities ')
+@app.get('/entities')
 def query_entities(table_name: str, parameters=''):
     def _query_entities():
         client = ClientFactory.getTableClient(table_name)
         result = EntityManger.query_entities(client)
-        if not result:
-            return QueryEntitiesError
         data = [item for item in result]
         return data
 
     return runWithErrorHandling(_query_entities)
 
 
-@app.post('/entities ')
+@app.post('/entities')
 def create_entity(table_name: str, row_key: str, parameters=''):
     def _create_entity():
         client = ClientFactory.getTableClient(table_name)
-        result = EntityManger.create_entity(client, row_key)
-        if not result:
-            raise EntityAlreadyExistsError()
+        EntityManger.create_entity(client, row_key)
     return runWithErrorHandling(_create_entity)
 
 
-@app.delete('/entities ')
+@app.delete('/entities')
 def delete_entity(table_name: str, row_key: str, partition_key: str):
     def _delete_entity():
         client = ClientFactory.getTableClient(table_name)
-        result = EntityManger.delete_entity(client, row_key, partition_key)
-        if not result:
-            raise EntityNotFoundError()
+        EntityManger.delete_entity(client, row_key, partition_key)
     return runWithErrorHandling(_delete_entity)
 
 
