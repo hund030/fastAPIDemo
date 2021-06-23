@@ -1,3 +1,4 @@
 fastapi
 uvicorn[stardard]
 azure-data-tables
+python-dotenv
