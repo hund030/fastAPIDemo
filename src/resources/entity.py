@@ -12,11 +12,11 @@ class Entity(object):
         u'RowKey': u'row',
         u'No.': u'No.',
         u'Name': u'Name',
-        u'Authors': [u'Authors'],
-        u'Main Actors': [u'Main Actors'],
-        u'Directors': [u'Directors'],
-        u'Publication Date': date.fromisoformat(DefaultValues.Default_Date),
-        u'Tags': [u'Tags'],
+        u'Authors': '["Authors"]',
+        u'MainActors': '["Main Actors"]',
+        u'Directors': '["Directors"]',
+        u'PublicationDate': date.fromisoformat(DefaultValues.Default_Date).strftime(DefaultValues.Date_Format),
+        u'Tags': '["Tags"]'
     }
 
     @staticmethod

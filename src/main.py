@@ -46,7 +46,7 @@ def query_entities(table_name: str, parameters=''):
 def create_entity(table_name: str, row_key: str, parameters=''):
     def _create_entity():
         client = ClientFactory.getTableClient(table_name)
-        EntityManger.create_entity(client, row_key)
+        EntityManger.create_entity(client, row_key, parameters)
     return runWithErrorHandling(_create_entity)
 
 

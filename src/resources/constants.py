@@ -1,5 +1,6 @@
 class DefaultValues(object):
     Default_Date = '2012-02-29'
+    Date_Format = '%m/%d/%Y'
 
 
 class EnvKey(object):

@@ -1,8 +1,8 @@
-from azure.core.exceptions import ResourceNotFoundError
+from azure.core.exceptions import ResourceNotFoundError, ResourceExistsError
 from azure.core.paging import ItemPaged
 from azure.data.tables import TableClient
 from datetime import date
-from resources import DefaultValues, Entity, EntityAlreadyExistsError, EntityNotFoundError
+from resources import Entity, EntityAlreadyExistsError, EntityNotFoundError
 
 
 class EntityManger(object):
