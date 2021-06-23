@@ -1,10 +1,11 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from resources import BaseError
 from utils import Response
 from ops import ClientFactory, TableManager, EntityManger
 from azure.core.exceptions import AzureError
 from fastapi import FastAPI
-from dotenv import load_dotenv
-load_dotenv()
 
 app = FastAPI()
 
